@@ -40,6 +40,23 @@ mod vec_collect;
 #[cfg(test)]
 extern crate test;
 
+#[cfg(feature = "mimalloc")]
+#[global_allocator]
+static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
+
+#[cfg(feature = "tcmalloc")]
+#[global_allocator]
+static GLOBAL: tcmalloc::TCMalloc = tcmalloc::TCMalloc;
+
+#[cfg(feature = "jemallocator")]
+#[global_allocator]
+static GLOBAL: jemallocator::Jemalloc = jemallocator::Jemalloc;
+
+#[cfg(feature = "rpmalloc")]
+#[global_allocator]
+static GLOBAL: rpmalloc::RpMalloc = rpmalloc::RpMalloc;
+
+
 const USAGE: &str = "
 Usage: rayon-demo bench
        rayon-demo <demo-name> [ options ]
